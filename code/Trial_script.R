@@ -25,9 +25,6 @@ sum(Birth_rates(t_1 = 1,
                 Delta =1))
 
 
-
-
-
 Make_birth_counts <- function(Total_births, 
                               Birth_rate = Birth_rates){
   
@@ -62,6 +59,8 @@ Incidence_var_a <- function(t, conc = 0.05, agemin = 0,
                             agemax = 50,  agepeak= 25, 
                             Imin =0.01,  Ipeak =0.05, 
                             Ifin =0.02){
+ 
+  # consider providing some guidance about how a user may define incidence function 
   #varying Inicdence 
   incidence = ifelse(t <= agemin, 0, 
                      ifelse(t <= agepeak, Imin + ((Ipeak - Imin)/(agepeak - agemin)) * (t - agemin),
@@ -405,10 +404,13 @@ Infected_Overall <- function(Initially_infected,
 ####################################################################################################################################
 ######################################Discretised_Susceptible_Cumulative_incidence_Prob#############################################
 
-Discretised_Susceptible_Cumulative_incidence_Prob <- function(Age,
+  Discretised_Susceptible_Cumulative_incidence_Prob <- function(Age,
                                                               Time,
                                                               Survival_Prob
-){
+# Age; vector  
+# Time; vector
+# Surv; - previous function - Discretised_Susceptible_Survival_Prob
+                                                              ){
   
   Cumulative_incidence = matrix(0, nrow = length(Time) + 1, ncol = length(Age) + 1)
   
