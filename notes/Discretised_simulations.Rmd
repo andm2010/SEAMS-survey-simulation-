@@ -204,6 +204,7 @@ and below is the calculation of the susceptibles for a specific age window and t
 
 ```{r Susceptible population}
 
+
 Susceptibles_pop <- function(Age,
                              Time,
                              pop_size = 10000,
