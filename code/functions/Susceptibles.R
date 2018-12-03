@@ -1,1 +1,0 @@
-# Function - Susceptibles_pop 
