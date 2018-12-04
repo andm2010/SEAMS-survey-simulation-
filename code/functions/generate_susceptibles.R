@@ -1,40 +1,34 @@
 # generate_susceptibles
 
-Susceptibles_Cum_Pop <- function(Age,
-                                 Time,
-                                 Cum_prob_survival,
-                                 Birth_counts,
-                                 Age_distribution
-){
+
+
+generate_susceptibles <- function(survival_matrix = susceptible_cumulative_survival_matrix,
+                                  births = negative_births
+                                  ){
   
-  #calculates the total number of the susceptible population (disritised manner)at a given Age and Time 
-  #for a range of initial values of S(t_1:t_2, 0) and ages them through Delta_t. 
-  #Returns a matrix
+  delta_d <- row(survival_matrix) - col(survival_matrix)
+  Susceptible  = matrix(NA, nrow = nrow(survival_matrix), ncol =  ncol(survival_matrix))
   
-  Susceptible  = matrix(0, nrow = length(Time)+1, ncol =  length(Age)+1)
+  Susceptible[(1:length(births)), ] =  births
   
-  Susceptible[(1:nrow(Susceptible)), 1] = Birth_counts
-  Susceptible[1, (1:ncol(Susceptible))]  = Age_distribution
+  seQ = min(delta_d):max(delta_d)
   
-  #Times = 2:length(Time)
-  
-  for (tt in Time){
-    for (aa in Age){
-      
-      
-      if (tt > aa){
-        
-        Susceptible[tt +1, aa + 1] = Cum_prob_survival[tt + 1, aa + 1] *  (Susceptible[ , 1])[(tt - aa)+1]
-        
-      }else{
-        
-        Susceptible[tt +1, aa + 1] = Cum_prob_survival[tt + 1, aa + 1] *  (Susceptible[1, ])[(aa - tt)+1]
-        
+  for (aa in seQ){
+    
+    if (aa >= 0){
+    
+    Susceptible[delta_d == aa]  = survival_matrix[delta_d == aa] * births[aa + 1]
+  #Susceptible[(1:length(Time)) + aa, aa + 1] =  diag(survival_matrix[(1:length(Time))+aa, aa + 1]) %*% Susceptible[(1:length(Time)), 1]
+    }else{
+    
+    Susceptible[delta_d == aa] = NA 
+    
       }
-      
-    }
   }
   return(Susceptible)
   
 }  
 
+
+generate_susceptibles(survival_matrix = w,
+                      births = rep(100, 6))
