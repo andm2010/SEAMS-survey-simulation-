@@ -5,6 +5,19 @@
 #This how far I could go will fill up the rest as we go.. 
 
 
+#'calculates the cumulative probability of survival in the susceptible 
+#' @param  susceptible_survival_rate_matrix a survival probability matrix  
+#' @return returns a matrix of cumulative probabilities of survival calculated from \code{susceptible_survival_rate_matrix}
+#' @examples
+#'  generate_susceptible_cumulative_survival(matrix(seq(0.01, 0.16, 0.01), ncol = 2 , nrow = 8))
+
+
+
+
+
+
+
+
 
 generate_susceptible_cumulative_survival <- function(susceptible_survival_rate_matrix
                                                      ){
@@ -35,7 +48,7 @@ generate_susceptible_cumulative_survival <- function(susceptible_survival_rate_m
   return(susceptible_cumulative_survival)
 }
 
-w  = generate_susceptible_cumulative_survival(susceptible_survival_rate_matrix = z)
+
 
 
 
